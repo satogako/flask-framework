@@ -10,7 +10,7 @@ def index():
     return render_template("index.html")
 
 
-@app.route("/about1") #що сюди введемо те і буде відображатися в кінці url адреси
+@app.route("/about1") # що сюди введемо те і буде відображатися в кінці url адреси
 def about():
     return render_template("about.html")
 
