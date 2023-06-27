@@ -1,10 +1,12 @@
 import os
 import json
-from flask import Flask, render_template
+from flask import Flask, render_template, request, flash
+if os.path.exists("env.py"):
+    import env
 
 
 app = Flask(__name__)
-
+app.secret_key = os.environ.get("SECRET_KEY")
 
 @app.route("/")
 def index():
@@ -30,8 +32,12 @@ def about_member(member_name):
     return render_template("member.html", member=member) # member - це ім’я змінної, яке передається до нашого member.html.
 
 
-@app.route("/contact")
+@app.route("/contact", methods=["GET", "POST"])
 def contact():
+    if request.method == "POST": # request імпортовано з бібліотеки Flask
+       flash("Thanks {}, we have recived your message!".format(
+        request.form.get("name")
+       ))
     return render_template("contact.html", page_title="Contact")
 
 
